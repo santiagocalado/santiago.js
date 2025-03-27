@@ -1,19 +1,119 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestão de Estoque e Vendas</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Aquisições</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff; /* Azul */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3; /* Azul mais escuro */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1 class="text-center">Sistema de Gestão de Estoque e Vendas</h1>
-    <div class="list-group">
-      <a href="cadastro-funcionarios.html" class="list-group-item list-group-item-action">Cadastro de Funcionários</a>
-      <a href="controle-estoque.html" class="list-group-item list-group-item-action">Controle de Estoque</a>
-      <a href="registro-vendas.html" class="list-group-item list-group-item-action">Registro de Vendas</a>
-    </div>
-  </div>
-</body>
-</html>
+
+    <h1>Registro de Aquisições</h1>
+
+    <form id="registroForm">
+        <label for="data">Data da Aquisição:</label>
+        <input type="text" id="data" placeholder="Digite a data (DD/MM/AAAA)" required>
+
+        <label for="nomeProduto">Nome do Produto:</label>
+        <input type="text" id="nomeProduto" required>
+
+        <label for="valorUnitario">Valor Unitário:</label>
+        <input type="number" id="valorUnitario" step="0.01" required>
+
+        <label for="localizacao">Localização do Produto:</label>
+        <textarea id="localizacao" rows="2" placeholder="Onde o produto se encontra?" required></textarea>
+
+        <label for="metodoPagamento">Método de Pagamento:</label>
+        <select id="metodoPagamento" required>
+            <option value="cartaoCredito">Cartão de Crédito</option>
+            <option value="cartaoDebito">Cartão de Débito</option>
+            <option value="transferencia">Transferência Bancária</option>
+            <option value="dinheiro">Dinheiro</option>
+        </select>
+
+        <button type="button" onclick="registrarAquisicao()">Registrar Aquisição</button>
+    </form>
+
+    <h2>Aquisições Registradas</h2>
+    <table id="tabelaAquisicoes">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Nome do Produto</th>
+                <th>Valor Total</th>
+                <th>Localização</th>
+                <th>Método de Pagamento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- As aquisições registradas aparecerão aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        function registrarAquisicao() {
+            const data = document.getElementById('data').value;
+            const nomeProduto = document.getElementById('nomeProduto').value;
+            const valorUnitario = document.getElementById('valorUnitario').value;
+            const localizacao = document.getElementById('localizacao').value;
+            const metodoPagamento = document.getElementById('metodoPagamento').value;
+
+            // Para fins de exemplo, vamos considerar uma quantidade fixa de 1
+            const quantidade = 1;
+            const valorTotal = (quantidade * valorUnitario).toFixed(2);
+
+            const tabela = document.getElementById('tabelaAquisicoes').getElementsByTagName('tbody')[0];
+            const novaLinha = tabela.insertRow();
+
+            novaLinha.insertCell(0).innerText = data;
+            novaLinha.insertCell(1).innerText = nomeProduto;
+            novaLinha.insertCell(2).innerText = `R$ ${valorTotal}`;
+            novaLinha.insertCell(3).innerText = localizacao;
+            novaLinha.insertCell(4).innerText = metodoPagamento;
